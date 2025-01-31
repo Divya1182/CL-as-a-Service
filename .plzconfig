@@ -1,0 +1,40 @@
+; Please config file
+; Leaving this file as is is enough to use plz to build your project.
+; Please will stay on whatever version you currently have until you run
+; 'plz update', when it will download the latest available version.
+;
+; Or you can uncomment the following to pin everyone to a particular version;
+; when you change it all users will automatically get updated.
+
+[alias "fed"]
+cmd = run //third_party/aws_fed:federate --
+subcommand = local
+subcommand = ci
+
+[build]
+path = /home/jenkins/.nvm/versions/node/v14.16.0/bin:/home/jenkins/.cargo/bin:/home/jenkins/go/bin:/home/jenkins/.bin:/home/jenkins/.please:/var/lang/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin
+PassEnv = GOPROXY
+PassEnv = TERRAFORM_VERSION
+PassEnv = AWS_FED_USERNAME
+PassEnv = AWS_FED_PASSWORD
+
+# in seconds - 2 hours
+timeout = 7200
+
+[buildconfig]
+terraform-version = 1.0.0
+env = dev
+cigna-pem-location = /etc/ssl/certs/cigna.pem
+tf-switch-dir = /home/jenkins/.terraform.versions
+tf-warn-output-errors = 1
+app-instance = module
+
+[please]
+version = 16.1.1
+
+[buildenv]
+tmpdir = /tmp
+aws-shared-credentials-file = /home/jenkins/.aws/credentials
+
+[go]
+importpath = github.com/cigna
