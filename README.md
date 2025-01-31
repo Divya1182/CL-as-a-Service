@@ -1,43 +1,40 @@
 # S3 Module Default Configuration
 
-An example of using the S3 module taking all of the defaults and only providing values for the inputs that are required.
-
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_s3"></a> [s3](#module\_s3) | ../../ | n/a |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_kms_key.key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+An example of using the S3 module overriding all the configuration inputs
 
 ## Inputs
+| Name                                  | Description                                                                                                                                                      | Type    |
+|---------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| alarm_evaluation_periods              | The number of periods over which data is compared to the specified threshold                                                                                     | string  |
+| alarm_period                          | The period in seconds over which the specified statistic is applied                                                                                              | string  |
+| alarm_severity_4xx                    | The alarm severity level for 4xx errors                                                                                              | string  |
+| alarm_severity_5xx                    | The alarm severity level for 5xx errors                                                                                              | string  |
+| alarm_threshold_4xx                   | The number of data points to trigger the alarm for 4xx errors                                                                                                    | string  |
+| alarm_threshold_5xx                   | The number of data points to trigger the alarm for 5xx errors                                                                                                    | string  |
+| bucket_kms                            | The alias of the KMS key that will be use to apply default bucket level encryption                                                                               | string  |
+| bucket_name                           | The name of the s3 bucket that will be created                                                                                                                   | string  |
+| bucket_policy                         | A JSON document with the Bucket Policy to be placed on the Bucket                                                                                                | string  |
+| required_tags                         | A map of Cigna-specific tags to place on the bucket, based on CIP best practices.                                                | map     |
+| required_data_tags                    | A map of data at rest tags to place on the bucket, based on CIP best practices.                                                | map     |
+| enable_bucket_versioning              | Flag to enable or disable Versioning on the S3 bucket                                                                                                            | boolean |
+| optional_tags                         | Map of any user-defined optional tags to put on the bucket resource                                                                                                 | map     |
+| optional_data_tags                    | Map of any user-defined data at rest tags to put on the bucket resource                                                                                                 | map     |
+| lc_abort_incomplete_upload_days       | Number of days until failed multipart uploads are deleted                                                                                                        | string  |
+| lc_prefix                             | Scope the lifecycle policy to a specific sub directory.  Pass in empty string to scope to bucket                                                                 | string  |
+| lc_remove_expired_deletion_markers    | Clean up deletion markers on versioned buckets                                                                                                                   | boolean |
+| lc_rule_id                            | Unique name of lifecycle rule                                                                                                                                    | string  |
+| lc_transition_1_days                  | Lifecycle policy rule that governs the transition to next storage class based on number of days                                                                  | string  |
+| lc_transition_1_storage_class         | Lifecycle policy rule that governs the transition storage class selected based on number of days                                                                 | string  |
+| lc_transition_2_days                  | Lifecycle policy rule that governs the transition to next storage class based on number of days. This is used after the first rule is met.                       | string  |
+| lc_transition_2_storage_class         | Lifecycle policy rule that governs the transition storage class selected based on number of days. This is used after the first rule is met.                      | string  |
+| lc_version_transition_1_days          | Lifecycle policy rule, for older versions, that governs the transition to next storage class based on number of days                                             | string  |
+| lc_version_transition_1_storage_class | Lifecycle policy rule, for older versions, that governs the transition storage class selected based on number of days                                            | string  |
+| lc_version_transition_2_days          | Lifecycle policy rule, for older versions, that governs the transition to next storage class based on number of days                                             | string  |
+| lc_version_transition_2_storage_class | Lifecycle policy rule, for older versions, that governs the transition storage class selected based on number of days. This is used after the first rule is met. | string  |
+| module_config                         | Map containing module configuration information. This should contain an attribute 'moduleVersion'                                                                | map     |
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_kms_accounts"></a> [kms\_accounts](#input\_kms\_accounts) | n/a | `list(string)` | n/a | yes |
-| <a name="input_kms_key_administrators"></a> [kms\_key\_administrators](#input\_kms\_key\_administrators) | n/a | `list(string)` | n/a | yes |
-| <a name="input_kms_key_users"></a> [kms\_key\_users](#input\_kms\_key\_users) | n/a | `list(string)` | n/a | yes |
-| <a name="input_s3_default_resources"></a> [s3\_default\_resources](#input\_s3\_default\_resources) | n/a | `list(string)` | n/a | yes |
-| <a name="input_s3_default_users"></a> [s3\_default\_users](#input\_s3\_default\_users) | n/a | `list(string)` | n/a | yes |
+## Outpus
 
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | n/a |
+| Name         | Description                  | Type    |
+|--------------|------------------------------|---------|
+| s3_bucket_id | The id of the created bucket | string  | 
